@@ -1,30 +1,26 @@
-import React, {useEffect, useState, useMemo} from 'react';
-import axios from 'axios'
+import QuizMain from './components/Quiz/QuizMain';
+import PersonalMain from './components/PersonalArea/PersonalMain/PersonalMain'
+import Rating from './components/Rating/RangeMain'
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 
 function App() {
+  return (
+    <div className="App">
+      <Router>
+        <Switch>
+          <Route exact path="/" component={PersonalMain}></Route>
+          <Route  path="/quiz" component={QuizMain}></Route>
+          <Route path="/rating" component={Rating}></Route>
+      
+      <QuizMain />
+        </Switch>
+    
 
-    const [appState, setAppState] = useState([]);
-
-    useEffect(() => {
-        axios.get('"https://portal-employee-service.herokuapp.com/interview').then((resp) => {
-            //осуществить проверку входных данных перед записью в стейт
-            setAppState(resp.data);
-        });
-    }, []);
-
-    useEffect(() => {
-        console.log(appState)
-    }, [appState]);
-
-
-    return (
-        <div className="App">
-            <pre style={{"text-align": "left"}}>
-                {JSON.stringify(appState, "", 4)}
-            </pre>
-        </div>
-    );
+      </Router>
+    
+    </div>
+  );
 }
 
 export default App;
